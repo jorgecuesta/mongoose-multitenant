@@ -22,7 +22,6 @@ module.exports = {
   collectionDelimiter: '__',
   connection: mongoose,
   setup: function() {
-      debugger;
     var collectionDelimiter, connection, self;
     self = this;
     if (arguments.length === 1 && arguments[0]) {
