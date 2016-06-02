@@ -5,15 +5,13 @@ See readme for examples and info
 @author Jason Raede <jason@torchedm.com>
 */
 
-var dot, mongoose, owl, _;
+var dot, mongoose, _;
 
 mongoose = require('mongoose');
 
 dot = require('dot-component');
 
-_ = require('underscore');
-
-owl = require('owl-deepcopy');
+_ = require('lodash');
 
 /*
 Added by @watnotte
@@ -24,6 +22,7 @@ module.exports = {
   collectionDelimiter: '__',
   connection: mongoose,
   setup: function() {
+      debugger;
     var collectionDelimiter, connection, self;
     self = this;
     if (arguments.length === 1 && arguments[0]) {
@@ -75,7 +74,7 @@ module.exports = {
       extendSchemaWithTenantId = function(tenantId, schema) {
         var config, extension, newPath, newSchema, newSubSchema, prop, _ref;
         extension = {};
-        newSchema = owl.deepCopy(schema);
+        newSchema = _.cloneDeep(schema);
         newSchema.callQueue.forEach(function(k) {
           var args, key, val, _ref, _results;
           args = [];

@@ -1,10 +1,10 @@
 {
   "name": "mongoose-multitenant",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "Wrapper for Mongoose that allows for easy horizontal multitenancy (collection prefix per tenant)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jraede/mongoose-multitenant.git"
+    "url": "https://github.com/jorgecuesta/mongoose-multitenant"
   },
   "main": "index.js",
   "scripts": {
@@ -20,17 +20,18 @@
     "multitenant",
     "multi-tenant"
   ],
-  "homepage": "https://github.com/jraede/mongoose-multitenant",
+  "homepage": "https://github.com/jorgecuesta/mongoose-multitenant",
   "contributors": [
-    "Jason Raede <jason@torchedm.com>"
+    "Jason Raede <jason@torchedm.com>",
+    "Jorge Cuesta <jckpo2@gmail.com>",
+    "Jeffrey Soriano <jeffreysoriano5@gmail.com>"
   ],
   "license": "MIT",
   "dependencies": {
-    "async": "^1.5.0",
+    "async": "~1.5.2",
     "dot-component": "~0.1.0",
-    "mongoose-schema-extend": "~0.1.7",
-    "owl-deepcopy": "0.0.2",
-    "underscore": "~1.5.2"
+    "lodash": "~4.13.1",
+    "mongoose-schema-extend": "~0.1.7"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
@@ -40,9 +41,9 @@
     "grunt-sed": "~0.1.1",
     "semver": "~2.2.1",
     "should": "~2.1.1",
-    "mongoose": "~4.0.7"
+    "mongoose": "~4.2.10"
   },
   "peerDependencies": {
-    "mongoose": ">=4.x"
+    "mongoose": ">=4.2.x"
   }
 }

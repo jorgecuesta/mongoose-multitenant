@@ -3,7 +3,7 @@ var f, semver, async, _;
 var fs = require('fs');
 semver = require('semver');
 async = require('async');
-_ = require('underscore');
+_ = require('lodash');
 
 f = require('util').format;
 module.exports = function(grunt) {
@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 					return f('NODE_ENV=test mocha %s', ex)
 				}
 			}
-			
+
 		},
 		coffee: {
 			source:{
@@ -89,7 +89,7 @@ module.exports = function(grunt) {
 				tasks.push('dropTestDb')
 			}
 		}
-		
+
 		grunt.task.run(tasks);
 	});
 };
