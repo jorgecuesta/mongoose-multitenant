@@ -5,26 +5,62 @@ var dbURI = 'mongodb://localhost/demo-app-clearing-db',
     should = require('chai').should(),
     mongoose = require('mongoose'),
     multitenant = require('../index'),
-    Dummy = null,
+    Dummy, Foo,
+    plugin,
+    counter = 0,
     clearDB = require('mocha-mongoose')(dbURI);
 
 multitenant.setup(mongoose);
+
+plugin = function lastModifiedPlugin(schema, options) {
+    if (schema.notPlug) {
+        return;
+    }
+
+    console.log('## Registering plugin on schema', counter++, '\n');
+
+    schema.pre('validate', function (next) {
+        var DummyClass = this, _tenantid;
+
+        _tenantid = DummyClass.getTenantId();
+
+        _tenantid.should.equal('tenant1');
+
+        var FooClass = DummyClass.getModel('Foo');
+
+        _tenantid = FooClass.getTenantId();
+
+        _tenantid.should.equal('tenant1');
+
+        var myFoo = new FooClass({
+            title: 'My Foo'
+        });
+
+        return myFoo.save(function (err, results) {
+            return mongoose.mtModel('tenant1.Foo').find(function (err, results) {
+                results.length.should.equal(1);
+                results[0].title.should.equal('My Foo');
+                return next();
+            });
+        });
+    });
+};
+
+// Register plugin.
+mongoose.plugin(plugin);
 
 Dummy = new mongoose.Schema({
     title: String
 });
 
-Dummy.pre('validate', function (next) {
-    var model = this, _tenantid;
-
-    _tenantid = model.getTenantId();
-
-    _tenantid.should.equal('tenant1');
-
-    next();
+Foo = new mongoose.Schema({
+    title: String
 });
 
+Foo.notPlug = true;
+
 mongoose.mtModel('Dummy', Dummy);
+mongoose.mtModel('Foo', Foo);
 
 describe('Multitenant with Hooks', function () {
 
@@ -36,19 +72,19 @@ describe('Multitenant with Hooks', function () {
 
     it('should be able to create a foo model for a tenant with only pre hook only once time', function (done) {
 
-        var fooClass, myFoo, self = this;
-        fooClass = mongoose.mtModel('tenant1.Dummy');
+        var self = this, myDummy,
+            dummyClass = mongoose.mtModel('tenant1.Dummy');
 
-        myFoo = new fooClass({
-            title: 'My Foo'
+        myDummy = new dummyClass({
+            title: 'My Dummy'
         });
 
-        return myFoo.save(function (err, results) {
-            self.foo = results;
+        return myDummy.save(function (err, results) {
+            self.dummy = results;
 
             return mongoose.mtModel('tenant1.Dummy').find(function (err, results) {
                 results.length.should.equal(1);
-                results[0].title.should.equal('My Foo');
+                results[0].title.should.equal('My Dummy');
                 return done();
             });
         });
