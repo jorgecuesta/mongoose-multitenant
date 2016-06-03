@@ -34,14 +34,16 @@
     "mongoose-schema-extend": "~0.1.7"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "grunt": "~0.4.2",
+    "grunt-contrib-coffee": "~0.8.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-exec": "~0.4.3",
-    "grunt-contrib-coffee": "~0.8.0",
     "grunt-sed": "~0.1.1",
+    "mocha-mongoose": "^1.2.0",
+    "mongoose": "^4.4.x",
     "semver": "~2.2.1",
-    "should": "~2.1.1",
-    "mongoose": "~4.2.10"
+    "should": "~2.1.1"
   },
   "peerDependencies": {
     "mongoose": ">=4.2.x"

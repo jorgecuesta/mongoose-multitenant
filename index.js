@@ -73,7 +73,8 @@ module.exports = {
       extendSchemaWithTenantId = function(tenantId, schema) {
         var config, extension, newPath, newSchema, newSubSchema, prop, _ref;
         extension = {};
-        newSchema = _.cloneDeep(schema);
+          // debugger;
+          newSchema = _.cloneDeep(_.omit(schema), ['callQueue', 'hooks']);
         newSchema.callQueue.forEach(function(k) {
           var args, key, val, _ref, _results;
           args = [];
