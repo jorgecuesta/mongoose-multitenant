@@ -101,6 +101,5 @@ describe('Multitenant with Hooks', function () {
             });
         });
     });
-
 });
 
